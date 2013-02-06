@@ -12,3 +12,9 @@ can
 cat
 
 The score for this entry would be 3.  It took three steps to reach the final word.
+
+TODO:
+- check entries against a wordlist
+- generate different starting puzzles using wordlist
+- menu, instructions, levels, graphics, highscore, Steam integration, SFX, FMVs, Twitter/Facebook integration, achievements
+c
