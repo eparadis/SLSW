@@ -8,11 +8,11 @@ public class Display : MonoBehaviour {
 	public bool showBlank;		// if true, we'll show a blank between the last and next to last entry
 	public string newWord;		// when inserting a new word, this is where we store it before it gets inserted
 	public int wordLength;		// the length of the words in this entry
-
+	private WordLogic wordlogic;
 	
 	// Use this for initialization
 	void Start () {
-	
+		wordlogic = new WordLogic();
 	}
 	
 	// Update is called once per frame
@@ -37,11 +37,25 @@ public class Display : MonoBehaviour {
 		if( showBlank)
 		{
 			// capture the Enter/Return key so we can do a submit action
-			if (Event.current.type == EventType.KeyDown && (Event.current.keyCode == KeyCode.KeypadEnter || Event.current.keyCode == KeyCode.Return))
-			{	//http://forum.unity3d.com/threads/69361-GUI.TextField-submission-via-quot-return-quot-key...?p=585583&viewfull=1#post585583
-				// TODO check to see this is a valid entry
-				entry.Insert(entry.Count-1, newWord);
-				newWord = "";
+			if (Event.current.type == EventType.KeyDown && (Event.current.keyCode == KeyCode.KeypadEnter || Event.current.keyCode == KeyCode.Return)) //http://forum.unity3d.com/threads/69361-GUI.TextField-submission-via-quot-return-quot-key...?p=585583&viewfull=1#post585583
+			{	
+				if( wordlogic.GameDistance(newWord, entry[entry.Count-2]) == 1) // check to see this is a valid entry
+				{
+					entry.Insert(entry.Count-1, newWord);
+					newWord = "";
+					Debug.Log("Word Accepted!");
+					
+					// check to see if that was game over
+					if( wordlogic.GameDistance(entry[entry.Count-1], entry[entry.Count-2]) == 1)
+					{
+						Debug.Log("Yay! You won! Score = " + (entry.Count-1));
+						showBlank = false;
+					}
+				} else 
+				{
+					Debug.Log("Word Denied.");
+					newWord = "";
+				}
 				//GUI.FocusControl("New Word Entry");
 			}
 			//GUI.SetNextControlName( "New Word Entry"); 
