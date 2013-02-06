@@ -2,3 +2,10 @@
 Library/
 Temp/
 
+#monoDevelop stuff
+Assembly-CSharp-vs.csproj
+Assembly-CSharp.csproj
+Assembly-CSharp.pidb
+SLSW-csharp.sln
+SLSW.sln
+SLSW.userprefs
